@@ -1,11 +1,15 @@
 package com.whinc.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sun.deploy.net.HttpUtils;
 import com.whinc.utils.BaiduTranslator;
 import com.whinc.utils.Translator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 
 /**
@@ -13,6 +17,7 @@ import javafx.scene.control.TextArea;
  * E-mail: xiaohui_hubei@163.com
  */
 public class MainWindowController {
+
     @FXML
     private TextArea sourceTxtArea;
 

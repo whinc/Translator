@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
@@ -6,32 +13,35 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox prefWidth="600" prefHeight="400" stylesheets="@/css/main.css"
-      fx:controller="com.whinc.controller.MainWindowController" xmlns:fx="http://javafx.com/fxml">
+
+<VBox prefHeight="400" prefWidth="600" stylesheets="@/css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whinc.controller.MainWindowController">
     <children>
-        <VBox fx:id="title_bar" prefHeight="70" fillWidth="true">
+        <VBox fx:id="title_bar" fillWidth="true" prefHeight="100">
         </VBox>
         <VBox>
-            <padding><Insets top="10" bottom="10" right="10" left="10"/></padding>
-            <TextArea fx:id="sourceTxtArea" promptText="source text"/>
-            <HBox spacing="10">
-                <VBox.margin>
-                    <Insets top="10" bottom="10" left="0" right="10"/>
-                </VBox.margin>
-                <children>
-                    <ComboBox fx:id="typeComboBox">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="English->Chinese"/>
-                                <String fx:value="Chinese->English"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <Button fx:id="translateBtn" text="Translate" onAction="#translate"/>
-                    <Button fx:id="clearBtn" text="Clear" onAction="#clear"/>
-                </children>
-            </HBox>
-            <TextArea fx:id="targetTxtArea" promptText="target text" />
+            <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
+           <children>
+               <TextArea fx:id="sourceTxtArea" promptText="source text" />
+               <HBox spacing="10">
+                   <VBox.margin>
+                       <Insets bottom="10" left="0" right="10" top="10" />
+                   </VBox.margin>
+                   <children>
+                       <ComboBox fx:id="typeComboBox" promptText="自动检测">
+                           <items>
+                               <FXCollections fx:factory="observableArrayList">
+                                   <String fx:value="English-&gt;Chinese" />
+                                   <String fx:value="Chinese-&gt;English" />
+                               </FXCollections>
+                           </items>
+                       </ComboBox>
+                       <Button fx:id="translateBtn" onAction="#translate" text="Translate" />
+                       <Button fx:id="clearBtn" onAction="#clear" text="Clear" />
+                       <ProgressBar fx:id="progressBar" prefHeight="27.0" prefWidth="198.0" progress="0.0" />
+                   </children>
+               </HBox>
+               <TextArea fx:id="targetTxtArea" promptText="target text" />
+           </children>
         </VBox>
     </children>
 </VBox>
