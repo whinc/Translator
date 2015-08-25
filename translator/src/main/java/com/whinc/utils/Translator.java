@@ -5,5 +5,5 @@ package com.whinc.utils;
  * E-mail: xiaohui_hubei@163.com
  */
 public interface Translator {
-    String translate(String from, String to, String source);
+    String translate(Direction from, Direction to, String source);
 }

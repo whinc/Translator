@@ -1,5 +1,7 @@
 package com.whinc.view;
 
+import java.net.URL;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +16,9 @@ public class MainWindow extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        URL mainFxml = getClass().getResource("/fxml/main.fxml");
+        FXMLLoader mainFxmlLoader = new FXMLLoader(mainFxml);
+        Parent root = mainFxmlLoader.<Parent>load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

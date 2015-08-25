@@ -7,14 +7,16 @@ import com.alibaba.fastjson.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by whinc on 2015/8/20.
  * E-mail: xiaohui_hubei@163.com
+ */
+
+/**
+ * <a href='http://developer.baidu.com/ms/translate'>百度翻译API参考文档</a>
  */
 public class BaiduTranslator implements Translator{
     private static final String SERVER_URL = "http://openapi.baidu.com/public/2.0/bmt/translate";
@@ -25,11 +27,11 @@ public class BaiduTranslator implements Translator{
     private static final String CLIENT_ID = "client_id";
 
     @Override
-    public String translate(String from, String to, String source) {
+    public String translate(Direction from, Direction to, String source) {
         String result = "";
         Map<String, String> params = new HashMap<>();
-        params.put(FROM, from);
-        params.put(TO, to);
+        params.put(FROM, from.getCode());
+        params.put(TO, to.getCode());
         params.put(CLIENT_ID, APP_KEY);
         try {
             String encodedSource = URLEncoder.encode(source, "utf-8");
@@ -52,7 +54,7 @@ public class BaiduTranslator implements Translator{
         JSONObject jsonObject = (JSONObject) JSON.parse(jsonStr);
         String errorCode = jsonObject.getString("error_code");
 
-        if (errorCode != null && !errorCode.isEmpty()) {
+        if (errorCode == null) {    // 没有发生错误
             JSONArray jsonArray = jsonObject.getJSONArray("trans_result");
             for (Object obj : jsonArray) {
                 JSONObject tmpObj = (JSONObject) obj;
