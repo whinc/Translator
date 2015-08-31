@@ -6,11 +6,14 @@ import com.whinc.utils.Translator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.util.Pair;
 
@@ -19,21 +22,12 @@ import javafx.util.Pair;
  * E-mail: xiaohui_hubei@163.com
  */
 public class MainWindowController{
-
-    @FXML
-    private TextArea sourceTxtArea;
-
-    @FXML
-    private TextArea targetTxtArea;
-
-    @FXML
-    private Button translateBtn;
-
-    @FXML
-    private Button clearBtn;
-
-    @FXML
-    private ComboBox<Pair<Direction, Direction>> mDirectionCbx;
+    @FXML public ProgressIndicator loadingBar;
+    @FXML private TextArea sourceTxtArea;
+    @FXML private TextArea targetTxtArea;
+    @FXML private Button translateBtn;
+    @FXML private Button clearBtn;
+    @FXML private ComboBox<Pair<Direction, Direction>> mDirectionCbx;
 
     @FXML
     public void clear() {
@@ -44,10 +38,17 @@ public class MainWindowController{
     @FXML
     public void translate() {
         String source = sourceTxtArea.getText();
+        if (source == null || source.isEmpty()) {
+            return;
+        }
         Translator translator = new BaiduTranslator();
         Pair<Direction, Direction> select = mDirectionCbx.getValue();
+        loadingBar.setVisible(true);
         String target = translator.translate(select.getKey(), select.getValue(), source);
-        targetTxtArea.setText(target);
+        if (target != null && !target.isEmpty()) {
+            targetTxtArea.setText(target);
+        }
+        loadingBar.setVisible(false);
     }
 
     private ListCell<Pair<Direction, Direction>> createListCell() {
