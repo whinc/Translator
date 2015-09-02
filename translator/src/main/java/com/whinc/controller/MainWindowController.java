@@ -6,13 +6,10 @@ import com.whinc.utils.Translator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.util.Pair;
@@ -25,8 +22,6 @@ public class MainWindowController{
     @FXML public ProgressIndicator loadingBar;
     @FXML private TextArea sourceTxtArea;
     @FXML private TextArea targetTxtArea;
-    @FXML private Button translateBtn;
-    @FXML private Button clearBtn;
     @FXML private ComboBox<Pair<Direction, Direction>> mDirectionCbx;
 
     @FXML

@@ -16,7 +16,7 @@ import java.util.Map;
  */
 
 /**
- * <a href='http://developer.baidu.com/ms/translate'>百度翻译API参考文档</a>
+ * <a href='http://developer.baidu.com/ms/translate'>百度翻译API</a>
  */
 public class BaiduTranslator implements Translator{
     private static final String SERVER_URL = "http://openapi.baidu.com/public/2.0/bmt/translate";
