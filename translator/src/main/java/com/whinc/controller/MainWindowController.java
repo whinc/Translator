@@ -1,82 +1,37 @@
 package com.whinc.controller;
 
-import com.whinc.utils.BaiduTranslator;
-import com.whinc.utils.Direction;
-import com.whinc.utils.Translator;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.net.URL;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextArea;
-import javafx.util.Pair;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 /**
- * Created by whinc on 2015/8/20.
+ * Created by whinc on 2015/9/4.
  * E-mail: xiaohui_hubei@163.com
  */
-public class MainWindowController{
-    @FXML public ProgressIndicator loadingBar;
-    @FXML private TextArea sourceTxtArea;
-    @FXML private TextArea targetTxtArea;
-    @FXML private ComboBox<Pair<Direction, Direction>> mDirectionCbx;
+public class MainWindowController {
+    @FXML
+    public TabPane tabPane;
 
     @FXML
-    public void clear() {
-        sourceTxtArea.clear();
-        targetTxtArea.clear();
-    }
+    private void initialize() throws IOException {
+        URL resource;
 
-    @FXML
-    public void translate() {
-        String source = sourceTxtArea.getText();
-        if (source == null || source.isEmpty()) {
-            return;
-        }
-        Translator translator = new BaiduTranslator();
-        Pair<Direction, Direction> select = mDirectionCbx.getValue();
-        loadingBar.setVisible(true);
-        String target = translator.translate(select.getKey(), select.getValue(), source);
-        if (target != null && !target.isEmpty()) {
-            targetTxtArea.setText(target);
-        }
-        loadingBar.setVisible(false);
-    }
+        resource = getClass().getResource("/fxml/Translate.fxml");
+        Tab translateTab = new Tab("Translate", FXMLLoader.<Node>load(resource));
+        translateTab.setClosable(false);
 
-    private ListCell<Pair<Direction, Direction>> createListCell() {
-        return new ListCell<Pair<Direction, Direction>>() {
-            @Override
-            protected void updateItem(Pair<Direction, Direction> item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item != null) {
-                    if (item.getKey() == item.getValue() && item.getKey() == Direction.AUTO) {
-                        setText(Direction.AUTO.getLang());
-                    } else {
-                        setText(String.format("%s->%s", item.getKey().getLang(), item.getValue().getLang()));
-                    }
-                } else {
-                    setText(null);
-                }
-            }
-        };
-    }
+        resource = getClass().getResource("/fxml/Word.fxml");
+        FXMLLoader wordFxmlLoader = new FXMLLoader(resource);
+        Tab wordTab = new Tab("Query Word", wordFxmlLoader.<Node>load());
+        wordTab.setClosable(false);
+        WordController wordController = wordFxmlLoader.<WordController>getController();
+        wordController.resizeNode(tabPane);
 
-    @FXML
-    private void initialize() {
-        mDirectionCbx.setCellFactory(param -> createListCell());
-        mDirectionCbx.setButtonCell(createListCell());
-
-        List<Pair<Direction, Direction>> data = new ArrayList<>();
-        data.add(new Pair<>(Direction.AUTO, Direction.AUTO));
-        data.add(new Pair<>(Direction.ZH, Direction.EN));
-        data.add(new Pair<>(Direction.EN, Direction.ZH));
-        data.add(new Pair<>(Direction.ZH, Direction.KOR));
-        data.add(new Pair<>(Direction.ZH, Direction.JP));
-        data.add(new Pair<>(Direction.ZH, Direction.WYW));
-        mDirectionCbx.getItems().addAll(data);
-        mDirectionCbx.setValue(data.get(0));
+        tabPane.getTabs().addAll(translateTab, wordTab);
     }
 }

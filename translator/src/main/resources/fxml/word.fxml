@@ -5,16 +5,21 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whinc.controller.WordController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
    <children>
       <HBox spacing="10.0">
          <children>
-            <TextField id="textField" />
-            <Button id="queryBtn" minWidth="50.0" text="Query" />
+            <TextField fx:id="wordTxtField" onAction="#query" promptText="Enter word"/>
+            <Button fx:id="queryBtn" minWidth="50.0" onAction="#query" text="Query" />
          </children>
-         <padding>
-            <Insets left="10.0" right="10.0" top="10.0" />
-         </padding>
       </HBox>
+       <VBox fx:id="result" fillWidth="true">
+           <padding>
+               <Insets top="10.0" left="5.0"/>
+           </padding>
+       </VBox>
    </children>
 </VBox>
